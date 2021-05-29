@@ -1,21 +1,16 @@
 const assert = require('chai').assert; //assert
 const sinon = require('sinon'); //mocks
 const nock = require('nock'); //http mocks
-const phantom = require('phantom');
+const axios = require('axios').default;
 
 const calc = require('../soma.js');
-
-
-const expRegHtml = /<html>/;
-const expRegHtmlErrado = /[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}/;
 
 const primeiroTeste = 1 + 1;
 const segundoTeste = [1, 2, 3, 4, 5];
 const terceiroTeste = [6, 7, 8, 9];
 const quartoTeste = { attr1: 13 };
 const quintoTeste = { attr3: 13 };
-const sextoTeste = new RegExp('([Invesstools])');
-
+const sextoTeste = /([Invesstools])/;
 const setimoTeste = [
     [1, 1],
     [2, 2],
@@ -23,9 +18,7 @@ const setimoTeste = [
     [6, 7],
     [9, 9]
 ];
-
-// const oitavoTeste = nock('https://google.com.br').persist().get('/').reply(200).filteringRequestBody(/(<html>)/);
-// console.log(oitavoTeste);
+const oitavoTeste = /[(<body>)(</body>)(<body)]/;
 
 describe('Testes', () => {
     it('1+1 é igual a 2', () => {
@@ -70,67 +63,11 @@ describe('Testes', () => {
         });
     });
 
-    async function carregar() {
-        console.log('entrou na função');
-        const url = "https://www.google.com";
-        const instance = await phantom.create(['--ignore-ssl-errors=yes', '--load-images=no']);
-        const page = await instance.createPage();
-        const status = await page.open(url);
-
-        if (status !== 'success') {
-            console.error(status);
-            await instance.exit();
-            return;
-        }
-
-        const content = await page.property('content');
-
-        await instance.exit();
-        // console.log(content); //HTML
-        return content;
-    }
-
-    ///////////////////////////////
-
-    let dados = carregar();
-    // console.log(dados); //Promise { <pending> }
-    // dados.then(resposta => {
-    //     // console.log(resposta); //HTML
-    //     console.log('antes do it');
-    //     describe('Teste HTML', (resposta) => {
-    //         it('O html da página do google contém a tag <body>', (resposta) => {
-    //             console.log('após o it');
-    //             assert.match(resposta, htmlReg);
-    //         })
-    //     })
-    // });
-
-    // ///////////////////////////////
-
-    // funcao2();
-    // async function funcao2() {
-    //     let resultadoFuncao2 = await carregar();
-
-    // }
-
-    //////////////////////////////
-
-    // let seraQuePega = dados.then((resposta) => {
-    //     // console.log('HTML REG ---------------------', htmlReg);
-    //     return resposta;
-    // }).then(
-    //     );
-
-    // console.log('Pegou?', seraQuePega);
-
-    //////////////////////////////
-    dados.then(
-        retorno => {
-            it('O html da página do google contém a tag <body>', (retorno) => {
-                // console.log('após o it', htmlReg);
-                console.log(resposta);
-                assert.match(resposta, /<html>/);
-            })
-        }
-    );
-})
+    it('O html da página do google contém a tag <body>', async() => {
+        nock('https://google.com.br')
+            .get('/')
+            .reply(200, '<body> </body>');
+        const { data } = await axios.get('https://google.com.br/');
+        assert.match(data, oitavoTeste);
+    })
+});

@@ -9,10 +9,10 @@
     "author": "Andre",
     "license": "ISC",
     "devDependencies": {
+        "axios": "^0.21.1",
         "chai": "^4.3.4",
         "mocha": "^8.4.0",
         "nock": "^13.0.11",
-        "phantom": "^6.3.0",
         "sinon": "^11.1.1"
     }
 }
