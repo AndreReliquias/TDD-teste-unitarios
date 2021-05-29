@@ -1,0 +1,18 @@
+{
+    "name": "tdd",
+    "version": "1.0.0",
+    "description": "Estudo dirigido - Teste Unitários",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha || true"
+    },
+    "author": "Andre",
+    "license": "ISC",
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "mocha": "^8.4.0",
+        "nock": "^13.0.11",
+        "phantom": "^6.3.0",
+        "sinon": "^11.1.1"
+    }
+}
