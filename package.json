@@ -2,17 +2,18 @@
     "name": "tdd",
     "version": "1.0.0",
     "description": "Estudo dirigido - Teste Unitários",
-    "main": "index.js",
+    "main": "",
     "scripts": {
-        "test": "mocha || true"
+        "test-mocha": "mocha || true",
+        "test-jest": "jest ./__tests__"
     },
-    "author": "Andre",
+    "author": "Andre Reliquias",
     "license": "ISC",
     "devDependencies": {
         "axios": "^0.21.1",
         "chai": "^4.3.4",
+        "jest": "^27.0.3",
         "mocha": "^8.4.0",
-        "nock": "^13.0.11",
-        "sinon": "^11.1.1"
+        "nock": "^13.0.11"
     }
 }

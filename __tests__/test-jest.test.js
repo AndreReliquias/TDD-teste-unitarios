@@ -1,4 +1,3 @@
-const assert = require('chai').assert; //assert
 const nock = require('nock'); //http mocks
 const axios = require('axios').default;
 
@@ -20,45 +19,45 @@ const setimoTeste = [
 const oitavoTeste = /[(<body>)(</body>)(<body)]/;
 
 describe('Testes', () => {
-    it('1+1 é igual a 2', () => {
-        assert.equal(primeiroTeste, 2);
+    test('1+1 é igual a 2', () => {
+        expect(primeiroTeste).toBe(2);
     });
 
-    it('1+1 não é igual a 7', () => {
-        assert.notEqual(primeiroTeste, 7);
+    test('1+1 não é igual a 7', () => {
+        expect(primeiroTeste).not.toBe(7);
     });
 
     it('O elemento 3 está contido no array', () => {
-        assert.include(segundoTeste, 3);
+        expect(segundoTeste).toContain(3);
     });
 
     it('No array o elemento “TDD é Top” não está contido', () => {
-        assert.notInclude(terceiroTeste, 'TDD é Top');
+        expect(terceiroTeste).not.toContain('TDD é Top');
     });
 
     it('O objeto possui o atributo ‘attr1’', () => {
-        assert.hasAnyKeys(quartoTeste, 'attr1');
+        expect(quartoTeste).toHaveProperty('attr1');
     });
 
     it('O objeto não possui o atributo ‘attr1’', () => {
-        assert.doesNotHaveAnyKeys(quintoTeste, 'attr1');
+        expect(quintoTeste).not.toHaveProperty('attr1');
     });
 
     it('A regex realiza match com a primeira frase', () => {
-        assert.match('Não existe concorrente com a investtools para a melhor empresa para se estagiar.', sextoTeste);
+        expect('Não existe concorrente com a investtools para a melhor empresa para se estagiar.').toMatch(sextoTeste);
     });
 
     it('A regex realiza match com a segunda frase', () => {
-        assert.match('Investtools cuida melhor dos seus estagiários que a bloomberg.', sextoTeste);
+        expect('Investtools cuida melhor dos seus estagiários que a bloomberg.').toMatch(sextoTeste);
     });
 
     it('A regex realiza match com a terceira frase', () => {
-        assert.match('Somos parte do Programa de Formação da Investtools', sextoTeste);
+        expect('Somos parte do Programa de Formação da Investtools').toMatch(sextoTeste);
     });
 
     setimoTeste.forEach(variavel => {
         it(`Soma de ${variavel[0]} + ${variavel[1]}`, () => {
-            assert.equal(calc.soma(variavel[0], variavel[1]), variavel[0] + variavel[1]);
+            expect(calc.soma(variavel[0], variavel[1])).toBe(variavel[0] + variavel[1]);
         });
     });
 
@@ -67,6 +66,6 @@ describe('Testes', () => {
             .get('/')
             .reply(200, '<body> </body>');
         const { data } = await axios.get('https://google.com.br/');
-        assert.match(data, oitavoTeste);
+        expect(data).toMatch(oitavoTeste);
     });
 });
